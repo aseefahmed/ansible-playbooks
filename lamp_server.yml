@@ -1,0 +1,6 @@
+---
+- hosts: web_server
+  roles:
+     - server 
+     - mysql
+     - php

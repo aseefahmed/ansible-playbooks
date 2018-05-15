@@ -1,0 +1,6 @@
+---
+# tasks file for roles/java
+- name: Installing Java
+  apt: name=default-jdk state=present update_cache=yes
+  become: yes
+  become_method: sudo

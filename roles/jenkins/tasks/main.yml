@@ -1,0 +1,16 @@
+---
+- name: Adding apt key for jenkins
+  apt_key: url=https://pkg.jenkins.io/debian/jenkins-ci.org.key state=present
+  become: yes
+  become_method: sudo
+
+- name: Adding repo address to the source
+  apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
+  become: yes
+  become_method: sudo
+ 
+- name: Installing Jenkins
+  apt: name=jenkins state=present
+  become: yes
+  become_method: sudo
+

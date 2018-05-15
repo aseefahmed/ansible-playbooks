@@ -1,0 +1,6 @@
+---
+# tasks file for roles/mysql
+- name: Installing MySQL
+  apt: name={{ item }} state=present
+  with_items: 
+     - mysql-server

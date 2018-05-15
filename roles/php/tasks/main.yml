@@ -1,0 +1,30 @@
+---
+- name: Adding PHP7 repo
+  apt_repository: repo=ppa:ondrej/php state=present
+  
+- name: Updating apt cache
+  apt: update_cache=yes
+
+- name: Installing PHP
+  apt: name={{ item }} state=present
+  with_items: 
+     - php 
+     - libapache2-mod-php 
+     - php-mcrypt 
+     - php-mysql
+
+- name: Deleting index.html file
+  file: path=/var/www/html/index.html state=absent
+
+- name: Creating index.php file
+  template:
+     src: index.j2
+     dest: /var/www/html/index.php
+     mode: '0644'
+     owner: root
+     group: root
+
+- name: Restarting Apache2 server
+  service: name=apache2 state=restarted
+
+

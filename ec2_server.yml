@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  tasks:
+   - name: Getting current timestamp
+     shell: "date +%s"
+     register: current_time
+   - name: create instances
+     ec2:
+        key_name: 121212
+        region: us-east-1
+        instance_type: t2.micro
+        image: ami-43a15f3e
+        count: 1
+        vpc_subnet_id: subnet-dbc442bf
+        assign_public_ip: yes
+        instance_tags:
+          "Name": "{{ current_time.stdout[0:10] }}"
+
